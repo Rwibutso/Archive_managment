@@ -5,6 +5,8 @@ class Files(models.Model):
     name = models.CharField(max_length=30)
     owner = models.CharField(max_length=30)
 
+    dkhdaf = models.
+
     def __str__(self):
         return self.name
 
