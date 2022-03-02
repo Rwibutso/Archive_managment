@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from rest_framework import serializers, validators
 
 
-class RegisterSerialiser(serializers.ModelSerializer):
+class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'password', 'email', 'first_name', 'last_name')
+        fields = ("username", "password", "email", "first_name", "last_name")
 
         extra_kwargs = {
             "password": {"write_only": True},
@@ -14,27 +14,46 @@ class RegisterSerialiser(serializers.ModelSerializer):
                 "required": True,
                 "allow_blank": False,
                 "validators": [
-                    validators.UniqueValidator(
-                        User.objects.all(), "Email exists!"
-                    )
-                ]
-            }
+                    validators.UniqueValidator(User.objects.all(), "Email exists!")
+                ],
+            },
         }
 
-    def create(self, validated_data):
-        username = validated_data.get('username')
-        password = validated_data.get('password')
-        email = validated_data.get('email')
-        first_name = validated_data.get('first_name')
-        last_name = validated_data.get('last_name')
+
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("username", "password")
 
 
-        user = User.objects.create(
-            username=username,
-            password=password,
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-        )
+# def create(self, validated_data):
+#     username = validated_data.get('username')
+#     password = validated_data.get('password')
+#     email = validated_data.get('email')
+#     first_name = validated_data.get('first_name')
+#     last_name = validated_data.get('last_name')
 
-        return user
+#     user = User.objects.create(
+#         username=username,
+#         password=password,
+#         email=email,
+#         first_name=first_name,
+#         last_name=last_name,
+#     )
+
+#     return user
+
+# class UserEditSerializer(serializers.ModelSerializer):
+#     """
+#     A User serializer to render for User updates
+#     """
+
+#     class Meta:
+#         model = UserProfile
+#         fields = (
+#             "email",
+#             "first_name",
+#             "last_name",
+#             "username",
+#             "password",
+        # )
