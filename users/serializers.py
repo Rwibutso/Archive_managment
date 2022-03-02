@@ -1,6 +1,9 @@
 from pyexpat import model
 from django.contrib.auth.models import User
 from rest_framework import serializers, validators
+from django.contrib.auth import get_user_model
+UserModel = get_user_model()
+
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -26,34 +29,56 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ("username", "password")
 
 
-# def create(self, validated_data):
-#     username = validated_data.get('username')
-#     password = validated_data.get('password')
-#     email = validated_data.get('email')
-#     first_name = validated_data.get('first_name')
-#     last_name = validated_data.get('last_name')
 
-#     user = User.objects.create(
-#         username=username,
-#         password=password,
-#         email=email,
-#         first_name=first_name,
-#         last_name=last_name,
-#     )
+class UserAddSerializer(serializers.ModelSerializer):
+    """
+    A User serializer to render for User updates
+    """
 
-#     return user
+    class Meta:
+        model = UserModel
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "username",
+            # "phone",
+            "password",
+            # "user_type",
+        )
 
-# class UserEditSerializer(serializers.ModelSerializer):
-#     """
-#     A User serializer to render for User updates
-#     """
 
-#     class Meta:
-#         model = UserProfile
-#         fields = (
-#             "email",
-#             "first_name",
-#             "last_name",
-#             "username",
-#             "password",
-        # )
+
+
+class UserEditSerializer(serializers.ModelSerializer):
+    """
+    A User serializer to render for User updates
+    """
+
+    class Meta:
+        model = UserModel
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "username",
+            # "phone",
+            "password",
+            # "user_type",
+        )
+
+class UserViewSerializer(serializers.ModelSerializer):
+    """
+    A User serializer to render for User updates
+    """
+
+    class Meta:
+        model = UserModel
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "username",
+            # "phone",
+            # "user_type",
+        )

@@ -38,11 +38,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework.authtoken",
     "users",
-    "knox",
     "documents",
     "drf_yasg",
+    "dj_rest_auth",
+    "allauth",
+    "allauth.account",
+    "django_filters"
 ]
+    
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -127,11 +132,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication', )
-# }
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
