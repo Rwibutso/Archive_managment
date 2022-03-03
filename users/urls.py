@@ -1,13 +1,13 @@
-from django.urls import URLPattern, path
+from django.urls import URLPattern, path, re_path
 from . import views
-from knox import views as knox_views
 
 
 urlpatterns = [
-    path("login/", views.LoginView.as_view()),
-    path("user/", views.get_user_data),
-    path("register/", views.RegisterView.as_view()),
-    path("logout/", knox_views.LogoutView.as_view()),
-    path("logoutall/", knox_views.LogoutAllView.as_view()),
-    # path("profile/", views.home_profile),
+    path("users/", views.UserListView.as_view(), name="rest_user_list"),
+    path("user/me/", views.UserDetailsView.as_view(), name="rest_user_details"),
+    # Special characters here means regulat expressions as this endpoing needs user's id
+    # which are captured by django using regular expressions
+    re_path(
+        r"^user/(?P<pk>[a-z0-9\-]+)/$", views.UserView.as_view(), name="user_detail"
+    ),
 ]
