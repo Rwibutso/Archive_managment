@@ -8,13 +8,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from allauth.account.views import ConfirmEmailView
 from dj_rest_auth.registration.serializers import VerifyEmailSerializer
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.debug import sensitive_post_parameters
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from users.serializers import UserViewSerializer
+from users.serializers import UserViewSerializer, UserEditSerializer, UserAddSerializer, RegisterSerializer
 from allauth.account import app_settings as allauth_settings
 from allauth.account.utils import complete_signup
 from dj_rest_auth.app_settings import JWTSerializer, TokenSerializer, create_token
@@ -31,7 +31,7 @@ from dj_rest_auth.app_settings import (
     create_token,
 )
 from django.db.models.functions import Lower
-from users.serializers import *
+# from users.serializers import *
 from django.contrib.auth import login as django_login
 from rest_framework.generics import GenericAPIView
 from django.contrib.auth import logout as django_logout
@@ -42,6 +42,7 @@ from dj_rest_auth.app_settings import (
 )
 from dj_rest_auth.models import TokenModel
 from dj_rest_auth.utils import jwt_encode
+# from django.contrib.auth.password_validation import is_password_valid
 
 sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters("password1", "password2")
@@ -133,9 +134,7 @@ class VerifyEmailView(APIView, ConfirmEmailView):
     Confirms a user's email address
     Accept the following POST parameters: code key
     Note that the User is not automatically logged in!
-
     Example: http://localhost:800/account/email/verification/
-
     data: {
     "key": "Ng:1nPqJO:tlHVspnG4MIFCaWQrf9U2gohhyqwwB91e72clbWyXas"
             }

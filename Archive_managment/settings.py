@@ -69,7 +69,7 @@ ROOT_URLCONF = "Archive_managment.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [str(BASE_DIR.joinpath('documents/templates'))],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -171,3 +171,11 @@ ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
 REST_AUTH_SERIALIZERS = {
     "LOGIN_SERIALIZER": "users.serializers.LoginSerializer",
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = ''
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''

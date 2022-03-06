@@ -1,10 +1,10 @@
-from django.urls import URLPattern, path, re_path
+from django.urls import path, re_path
 from . import views
 
 
 urlpatterns = [
-    path("users/", views.UserListView.as_view(), name="rest_user_list"),
-    path("user/me/", views.UserDetailsView.as_view(), name="rest_user_details"),
+    path("", views.UserListView.as_view(), name="rest_user_list"),
+    path("me/", views.UserDetailsView.as_view(), name="rest_user_details"),
     # Special characters here means regulat expressions as this endpoing needs user's id
     # which are captured by django using regular expressions
     re_path(

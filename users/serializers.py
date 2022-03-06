@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers, validators
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from users.utils.password_validator import is_password_valid
 from dj_rest_auth.serializers import LoginSerializer
 
@@ -28,6 +28,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = UserModel(email=self.validated_data["email"])
         password = self.validated_data["password"]
         password2 = self.validated_data["password2"]
+        first_name = self.validated_data["first_name"]
+        last_name = self.validated_data["last_name"]
+        username = self.validated_data["email"]
 
         if not is_password_valid(self.validated_data["password"]):
             raise serializers.ValidationError(
@@ -43,6 +46,9 @@ class RegisterSerializer(serializers.ModelSerializer):
                 _("The two password fields didn't match.")
             )
         user.set_password(password)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = username
         user.save()
         return user
 
