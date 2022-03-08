@@ -15,11 +15,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import permissions
+import documents
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.views.generic import TemplateView
 from dj_rest_auth.registration.views import VerifyEmailView
 from users import views
+
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -34,6 +37,9 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],
 )
 
+
+
+
 urlpatterns = [
     re_path(
         r"^swagger/$",
@@ -42,6 +48,9 @@ urlpatterns = [
     ),
     path("admin/", admin.site.urls),
     path("api/", include("users.urls")),
+    path("files/", include('documents.urls')),
+
+
     # Rest Endpoint for password reset confirmation Email Sending
     re_path(
         r"^accounts/password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,50})/$",

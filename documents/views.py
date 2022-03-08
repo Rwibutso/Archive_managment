@@ -1,11 +1,30 @@
-from .models import Files
-from django.views.generic import CreateView 
-from django.urls import reverse_lazy 
-from .form import PostForm
+from .models import *
+from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework import generics
+from .serializers import *
 
 
-class CreatePostView(CreateView): 
-    model = Files
-    form_class = PostForm
-    template_name = 'upload.html'
-    success_url = reverse_lazy('home')
+
+class DocImageView(generics.ListCreateAPIView):
+    serializer_class = DocImageSerializer
+    queryset = Files_image.objects.all()
+
+class DocInvoiceView(generics.ListCreateAPIView):
+    serializer_class = DocInvoiceSerializer
+    queryset = Files_invoice.objects.all()
+
+class DocLetterView(generics.ListCreateAPIView):
+    serializer_class = DocLetterSerializer
+    queryset = Files_letter.objects.all()
+
+class DocReceiptsView(generics.ListCreateAPIView):
+    serializer_class = DocReceiptSerializer
+    queryset = Files_receipt.objects.all()
+
+class DocReportsView(generics.ListCreateAPIView):
+    serializer_class = DocReportsSerializer
+    queryset = Files_reports.objects.all()
+
+
+
