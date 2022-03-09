@@ -510,7 +510,7 @@ class UserDetailsView(generics.RetrieveAPIView):
             )
 
 
-class UserView(generics.RetrieveUpdateAPIView):
+class UserView(generics.RetrieveUpdateDestroyAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UserViewSerializer
     permission_classes = (IsAuthenticated,)
