@@ -11,7 +11,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name="files", name="cover", field=models.FileField(upload_to="file/"),
+            model_name="files",
+            name="cover",
+            field=models.FileField(upload_to="file/"),
         ),
         migrations.AlterField(
             model_name="files",
@@ -21,9 +23,13 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AlterField(
-            model_name="files", name="name", field=models.CharField(max_length=30),
+            model_name="files",
+            name="name",
+            field=models.CharField(max_length=30),
         ),
         migrations.AlterField(
-            model_name="files", name="owner", field=models.CharField(max_length=30),
+            model_name="files",
+            name="owner",
+            field=models.CharField(max_length=30),
         ),
     ]

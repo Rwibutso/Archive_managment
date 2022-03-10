@@ -14,7 +14,12 @@ from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from users.serializers import UserViewSerializer, UserEditSerializer, UserAddSerializer, RegisterSerializer
+from users.serializers import (
+    UserViewSerializer,
+    UserEditSerializer,
+    UserAddSerializer,
+    RegisterSerializer,
+)
 from allauth.account import app_settings as allauth_settings
 from allauth.account.utils import complete_signup
 from dj_rest_auth.app_settings import JWTSerializer, TokenSerializer, create_token
@@ -31,6 +36,7 @@ from dj_rest_auth.app_settings import (
     create_token,
 )
 from django.db.models.functions import Lower
+
 # from users.serializers import *
 from django.contrib.auth import login as django_login
 from rest_framework.generics import GenericAPIView
@@ -42,6 +48,7 @@ from dj_rest_auth.app_settings import (
 )
 from dj_rest_auth.models import TokenModel
 from dj_rest_auth.utils import jwt_encode
+
 # from django.contrib.auth.password_validation import is_password_valid
 
 sensitive_post_parameters_m = method_decorator(
@@ -474,13 +481,13 @@ class PasswordResetConfirmView(GenericAPIView):
 class UserDetailsView(generics.RetrieveAPIView):
     """
     Returns my(me connected user) profile details
-    
+
     """
 
     queryset = get_user_model().objects.all()
     serializer_class = UserViewSerializer
     permission_classes = (IsAuthenticated,)
-    http_method_names = [u"get"]
+    http_method_names = ["get"]
 
     def get_object(self):
         return self.request.user
@@ -514,7 +521,7 @@ class UserView(generics.RetrieveUpdateDestroyAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UserViewSerializer
     permission_classes = (IsAuthenticated,)
-    http_method_names = [u"get", u"put", u"delete"]
+    http_method_names = ["get", "put", "delete"]
 
     def get_serializer_class(self):
         if self.request.method == "PUT":
@@ -548,7 +555,7 @@ class UserView(generics.RetrieveUpdateDestroyAPIView):
                 ):
                     pass
                 else:
-                    if not is_password_valid(request.data["password"]):
+                    if not (request.data["password"]):
                         return Response(
                             {
                                 "detail": _(
@@ -599,13 +606,13 @@ class UserView(generics.RetrieveUpdateDestroyAPIView):
 class UserListView(generics.ListAPIView):
     """
     Returns a list of all users
-    
+
     """
 
     serializer_class = UserViewSerializer
     permission_classes = (IsAuthenticated,)
     queryset = get_user_model().objects.all()
-    http_method_names = [u"get"]
+    http_method_names = ["get"]
 
     def get_serializer_class(self):
         if self.request.method == "POST":

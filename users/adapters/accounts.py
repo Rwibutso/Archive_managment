@@ -28,7 +28,9 @@ class AccountAdapter(DefaultAccountAdapter):
         bits = urlsplit(location)
         if not (bits.scheme and bits.netloc):
             uri = "{proto}://{domain}{url}".format(
-                proto=proto, domain=site.domain, url=location,
+                proto=proto,
+                domain=site.domain,
+                url=location,
             )
         else:
             uri = location
@@ -52,7 +54,10 @@ class AccountAdapter(DefaultAccountAdapter):
         else:
             proto = "http"
 
-        uri = "{proto}://{domain}".format(proto=proto, domain=site.domain,)
+        uri = "{proto}://{domain}".format(
+            proto=proto,
+            domain=site.domain,
+        )
         if "password_reset_url" in context:
             action_uri = context["password_reset_url"]
             location = action_uri.split("accounts")[0]

@@ -6,38 +6,58 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('documents', '0008_files_letter_user'),
+        ("documents", "0008_files_letter_user"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='File',
+            name="File",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cover', models.ImageField(upload_to='files/')),
-                ('name', models.CharField(max_length=30)),
-                ('description', models.TextField()),
-                ('private', models.BooleanField(default=False)),
-                ('type', models.IntegerField(choices=[(1, 'Image'), (2, 'Invoice'), (3, 'Receipt'), (4, 'Letter'), (5, 'Report')], default=0)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cover", models.ImageField(upload_to="files/")),
+                ("name", models.CharField(max_length=30)),
+                ("description", models.TextField()),
+                ("private", models.BooleanField(default=False)),
+                (
+                    "type",
+                    models.IntegerField(
+                        choices=[
+                            (1, "Image"),
+                            (2, "Invoice"),
+                            (3, "Receipt"),
+                            (4, "Letter"),
+                            (5, "Report"),
+                        ],
+                        default=0,
+                    ),
+                ),
             ],
         ),
         migrations.DeleteModel(
-            name='Files_image',
+            name="Files_image",
         ),
         migrations.DeleteModel(
-            name='Files_invoice',
+            name="Files_invoice",
         ),
         migrations.RemoveField(
-            model_name='files_letter',
-            name='user',
+            model_name="files_letter",
+            name="user",
         ),
         migrations.DeleteModel(
-            name='Files_receipt',
+            name="Files_receipt",
         ),
         migrations.DeleteModel(
-            name='Files_reports',
+            name="Files_reports",
         ),
         migrations.DeleteModel(
-            name='Files_letter',
+            name="Files_letter",
         ),
     ]

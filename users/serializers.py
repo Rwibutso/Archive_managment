@@ -74,9 +74,7 @@ class UserAddSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "username",
-            # "phone",
             "password",
-            # "user_type",
         )
 
 
@@ -92,9 +90,8 @@ class UserEditSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "username",
-            # "phone",
             "password",
-            # "user_type",
+    
         )
 
 
@@ -110,6 +107,5 @@ class UserViewSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "username",
-            # "phone",
-            # "user_type",
+            
         )

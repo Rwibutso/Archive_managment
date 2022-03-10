@@ -4,8 +4,6 @@ from django.contrib.auth import get_user_model
 from .validators import validate_file_extension
 
 
-
-
 class File(models.Model):
     class Choices(models.IntegerChoices):
         image = 1
@@ -13,7 +11,6 @@ class File(models.Model):
         receipt = 3
         letter = 4
         report = 5
-
 
     # cover = models.FileField(upload_to="files/")
     cover = models.FileField(upload_to="files/", validators=[validate_file_extension])
@@ -29,50 +26,12 @@ class File(models.Model):
         return self.name
 
 
-# class Files_image(models.Model):
-#     cover = models.ImageField(upload_to="images/")
-#     name = models.CharField(max_length=30)
-#     description = models.TextField()
-#     private = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return self.name
-
-# class Files_invoice(models.Model):
-#     cover = models.FileField(upload_to="file/")
-#     name = models.CharField(max_length=30)
-#     description = models.TextField()
-#     private = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return self.name
-
-
-# class Files_receipt(models.Model):
-#     cover = models.FileField(upload_to="file/")
-#     name = models.CharField(max_length=30)
-#     description = models.TextField()
-#     private = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return self.name        
-
-
-# class Files_letter(models.Model):
-#     cover = models.FileField(upload_to="file/")
-#     name = models.CharField(max_length=30)
-#     description = models.TextField()
-#     private = models.BooleanField(default=False)
-#     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-#     def __str__(self):
-#         return self.name        
-
-
-# class Files_reports(models.Model):
-#     cover = models.FileField(upload_to="file/")
-#     name = models.CharField(max_length=30)
-#     description = models.TextField()
-#     private = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return self.name
+    def get_cover(self):
+        try:
+            if self.cover:
+                print(self.cover.url)
+                return "localhost:8000" + str(self.cover.url)
+            else:
+                return ""
+        except NameError:
+            return ""

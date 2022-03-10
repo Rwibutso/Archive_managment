@@ -6,53 +6,85 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('documents', '0004_files_private'),
+        ("documents", "0004_files_private"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Files_invoice',
+            name="Files_invoice",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cover', models.FileField(upload_to='file/')),
-                ('name', models.CharField(max_length=30)),
-                ('owner', models.CharField(max_length=30)),
-                ('private', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cover", models.FileField(upload_to="file/")),
+                ("name", models.CharField(max_length=30)),
+                ("owner", models.CharField(max_length=30)),
+                ("private", models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
-            name='Files_letter',
+            name="Files_letter",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cover', models.FileField(upload_to='file/')),
-                ('name', models.CharField(max_length=30)),
-                ('owner', models.CharField(max_length=30)),
-                ('private', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cover", models.FileField(upload_to="file/")),
+                ("name", models.CharField(max_length=30)),
+                ("owner", models.CharField(max_length=30)),
+                ("private", models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
-            name='Files_receipt',
+            name="Files_receipt",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cover', models.FileField(upload_to='file/')),
-                ('name', models.CharField(max_length=30)),
-                ('owner', models.CharField(max_length=30)),
-                ('private', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cover", models.FileField(upload_to="file/")),
+                ("name", models.CharField(max_length=30)),
+                ("owner", models.CharField(max_length=30)),
+                ("private", models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
-            name='Files_reports',
+            name="Files_reports",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cover', models.FileField(upload_to='file/')),
-                ('name', models.CharField(max_length=30)),
-                ('owner', models.CharField(max_length=30)),
-                ('private', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cover", models.FileField(upload_to="file/")),
+                ("name", models.CharField(max_length=30)),
+                ("owner", models.CharField(max_length=30)),
+                ("private", models.BooleanField(default=False)),
             ],
         ),
         migrations.AlterField(
-            model_name='files',
-            name='cover',
-            field=models.ImageField(upload_to='images/'),
+            model_name="files",
+            name="cover",
+            field=models.ImageField(upload_to="images/"),
         ),
     ]

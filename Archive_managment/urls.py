@@ -25,7 +25,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
-
 schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",
@@ -40,8 +39,6 @@ schema_view = get_schema_view(
 )
 
 
-
-
 urlpatterns = [
     re_path(
         r"^swagger/$",
@@ -50,9 +47,7 @@ urlpatterns = [
     ),
     path("admin/", admin.site.urls),
     path("api/", include("users.urls")),
-    path("files/", include('documents.urls')),
-
-
+    path("files/", include("documents.urls")),
     # Rest Endpoint for password reset confirmation Email Sending
     re_path(
         r"^account/password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,50})/$",
@@ -105,4 +100,4 @@ urlpatterns = [
         views.PasswordResetConfirmView.as_view(),
         name="rest_password_reset_confirm",
     ),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
