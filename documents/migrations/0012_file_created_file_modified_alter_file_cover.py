@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             name="cover",
             field=models.FileField(
                 upload_to="files/",
-                validators=[documents.validators.validate_file_extension],
+                validators=[documents.validators],
             ),
         ),
     ]

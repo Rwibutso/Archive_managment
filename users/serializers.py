@@ -1,8 +1,10 @@
+from dataclasses import field
 from django.contrib.auth.models import User
 from rest_framework import serializers, validators
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
+from users.models import UserProfile
 from users.utils.password_validator import is_password_valid
 from dj_rest_auth.serializers import LoginSerializer
 
@@ -109,3 +111,17 @@ class UserViewSerializer(serializers.ModelSerializer):
             "username",
             
         )
+
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ("id", "profile_user", "profile_image", "bio")
+
+
+class ProfileUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ("id", "profile_user", "profile_image", "bio")
+        read_only_fields = ("user",)

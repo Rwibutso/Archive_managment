@@ -9,6 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
 from django_filters.rest_framework import DjangoFilterBackend
 
+from documents import serializers
+
 
 class DocView(generics.RetrieveUpdateDestroyAPIView):
     queryset = File.objects.all()
@@ -18,7 +20,7 @@ class DocView(generics.RetrieveUpdateDestroyAPIView):
 
     def get(self, request, *args, **kwargs):
         """
-        Returns user's detailed informations
+        Returns user's docs informations
         """
         try:
             current_doc = File.objects.get(id=kwargs["pk"])
@@ -164,56 +166,3 @@ class DocListByUserView(generics.ListAPIView):
         user_doc_qs = queryset.filter(user=current_user)
         serializer = self.serializer_class(user_doc_qs, many=True)
         return Response(serializer.data)
-
-
-# class DocImageView(generics.ListCreateAPIView):
-#     serializer_class = DocImageSerializer
-#     queryset = Files_image.objects.all()
-
-# class DocInvoiceView(generics.ListCreateAPIView):
-#     serializer_class = DocInvoiceSerializer
-#     queryset = Files_invoice.objects.all()
-
-# class DocLetterView(generics.ListCreateAPIView):
-#     serializer_class = DocLetterSerializer
-#     queryset = Files_letter.objects.all()
-#     http_method_names = [u"get", u"post"]
-
-
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-
-#         if not serializer.is_valid():
-#             data_errors = {}
-#             data_message = str("")
-#             for P, M in serializer.errors.items():
-#                 data_message += P + ": " + M[0].replace(".", "") + ", "
-#             data_errors["detail"] = data_message
-#             return Response(data_errors, status=status.HTTP_400_BAD_REQUEST)
-
-#         serializer.save(user=request.user)
-#         self.get_success_headers(serializer.data)
-#         return Response(
-#             {
-#                 "detail": _(
-#                     "Registration successfully completed. Please check your email to activate your account"
-#                 )
-#             },
-#             status=status.HTTP_201_CREATED,
-#         )
-
-#     def get(self, request, *args, **kwargs):
-#         """
-#         Returns a list all users
-#         """
-#         queryset = self.queryset.filter(user=request.user)
-#         serializer = self.serializer_class(queryset, many=True)
-#         return Response(serializer.data)
-
-# class DocReceiptsView(generics.ListCreateAPIView):
-#     serializer_class = DocReceiptSerializer
-#     queryset = Files_receipt.objects.all()
-
-# class DocReportsView(generics.ListCreateAPIView):
-#     serializer_class = DocReportsSerializer
-#     queryset = Files_reports.objects.all()

@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     path("allusers/", views.UserListView.as_view(), name="rest_user_list"),
     path("me/", views.UserDetailsView.as_view(), name="rest_user_details"),
+    path("add_profile/", views.ProfileUploadView.as_view(), name="rest_profile_create"),
+
     # Special characters here means regulat expressions as this endpoing needs user's id
     # which are captured by django using regular expressions
     # path(
@@ -12,5 +14,8 @@ urlpatterns = [
     # ),
     re_path(
         r"^user/(?P<pk>[a-z0-9\-]+)/$", views.UserView.as_view(), name="user_detail"
+    ),
+    re_path(
+        r"^profile/(?P<pk>[a-z0-9\-]+)/$", views.UserProfileView.as_view(), name="user_profile"
     ),
 ]

@@ -14,7 +14,9 @@ from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from documents import serializers
 from users.serializers import (
+    UserProfileSerializer,
     UserViewSerializer,
     UserEditSerializer,
     UserAddSerializer,
@@ -48,6 +50,9 @@ from dj_rest_auth.app_settings import (
 )
 from dj_rest_auth.models import TokenModel
 from dj_rest_auth.utils import jwt_encode
+from users.models import UserProfile
+from users.serializers import ProfileUploadSerializer
+
 
 # from django.contrib.auth.password_validation import is_password_valid
 
@@ -635,3 +640,100 @@ class UserListView(generics.ListAPIView):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
+
+
+
+
+############## User Profile ################
+
+
+class UserProfileView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserProfileSerializer
+    queryset = get_user_model().objects.all()
+    permission_classes = (IsAuthenticated,)
+    http_method_names = ["get", "put", "delete"]
+
+
+    def get(self, request, *args, **kwargs):
+        """
+        Returns user's detailed informations
+        """
+        try:
+            current_profile = UserProfile.objects.get(id=kwargs["pk"])
+            profile_serialized = UserProfileSerializer(current_profile).data
+            return Response(profile_serialized)
+        except get_user_model().DoesNotExist:
+            return Response(
+                {"detail": _("Profile is not available")},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+
+    def put(self, request, *args, **kwargs):
+        """
+        Updates user's detailed information
+        """
+        try:
+            current_profile = UserProfile.objects.get(id=kwargs["pk"])
+            
+            data = request.data.copy()
+        
+            partial = kwargs.pop("partial", True)
+            serializer = self.get_serializer(current_profile, data=data, partial=partial)
+
+            if not serializer.is_valid():
+                data_errors = {}
+                data_message = str("")
+                for P, M in serializer.errors.items():
+                    data_message += P + ": " + M[0].replace(".", "") + ", "
+                data_errors["detail"] = data_message
+                return Response(data_errors, status=status.HTTP_400_BAD_REQUEST)
+
+            self.perform_update(serializer)
+            profile_serialized = UserProfileSerializer(current_profile).data
+            return Response(profile_serialized)
+        except UserProfile.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Removes a user from the database
+        """
+        try:
+            current_profile = UserProfile.objects.get(id=kwargs["pk"])
+            current_profile.delete()
+            return Response(
+                {"detail": _("Document successfully deleted")}, status=status.HTTP_200_OK
+            )
+        except UserProfile.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+class ProfileUploadView(generics.CreateAPIView):
+
+    serializer_class = ProfileUploadSerializer
+    permission_classes = (IsAuthenticated,)
+    queryset = UserProfile.objects.all()
+    http_method_names = ["post"]
+    # get_user_model = ser as
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        if not serializer.is_valid():
+            data_errors = {}
+            data_message = str("")
+            for P, M in serializer.errors.items():
+                data_message += P + ": " + M[0].replace(".", "") + ", "
+            data_errors["detail"] = data_message
+            return Response(data_errors, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer.save()
+        self.get_success_headers(serializer.data)
+        return Response(
+            {"detail": _("The profile successfully uploaded"), "data": serializer.data},
+            status=status.HTTP_201_CREATED,
+        )
