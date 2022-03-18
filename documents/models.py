@@ -16,7 +16,6 @@ class File(models.Model):
         letter = 4
         report = 5
 
-    # cover = models.FileField(upload_to="files/")
     cover = models.FileField(upload_to="files/")
     name = models.CharField(max_length=30)
     description = models.TextField()
@@ -31,30 +30,27 @@ class File(models.Model):
 
     def save(self, *args, **kwargs):
         ext = os.path.splitext(self.cover.name)[1]
-        valid_extensions_image = ['png','jpeg','svg']
-        valid_extensions_invoice = ['pdf','doc','docs','ppt','txt']
-        valid_extensions_letter = ['pdf','doc','docs','ppt','txt']
-        valid_extensions_receipts = ['pdf','doc','docs','ppt','txt']
-        valid_extensions_reports = ['pdf','doc','docs','ppt','txt']
+        valid_extensions_image = ['.png','.jpeg','.svg']
+        valid_extensions_invoice = ['.pdf','.doc','.docs','.ppt','.txt']
+        valid_extensions_letter = ['.pdf','.doc','.docs','.ppt','.txt']
+        valid_extensions_receipts = ['.pdf','.doc','.docs','.ppt','.txt']
+        valid_extensions_reports = ['.pdf','.doc','.docs','.ppt','.txt']
         if self.type == 1:
             if not ext.lower() in valid_extensions_image:
                 raise ValidationError("only images allowed")
-        super(File, self).save(*args, **kwargs)
 
         if self.type == 2:
             if not ext.lower() in valid_extensions_invoice:
                 raise ValidationError("Unsupported file extension")
-        super(File, self).save(*args, **kwargs)
 
         if self.type == 3:
             if not ext.lower() in valid_extensions_letter:
                 raise ValidationError("Unsupported file extension")
-        super(File, self).save(*args, **kwargs)
 
         if self.type == 4:
             if not ext.lower() in valid_extensions_receipts:
                 raise ValidationError("Unsupported file extension")
-        super(File, self).save(*args, **kwargs)
+
 
         if self.type == 5:
             if not ext.lower() in valid_extensions_reports:

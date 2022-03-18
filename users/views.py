@@ -656,7 +656,7 @@ class UserProfileView(generics.RetrieveUpdateDestroyAPIView):
 
     def get(self, request, *args, **kwargs):
         """
-        Returns user's detailed informations
+        Returns user's profile informations
         """
         try:
             current_profile = UserProfile.objects.get(id=kwargs["pk"])
@@ -671,7 +671,7 @@ class UserProfileView(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, *args, **kwargs):
         """
-        Updates user's detailed information
+        Updates user's profile information
         """
         try:
             current_profile = UserProfile.objects.get(id=kwargs["pk"])
@@ -699,7 +699,7 @@ class UserProfileView(generics.RetrieveUpdateDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         """
-        Removes a user from the database
+        Removes a User_profile from the database
         """
         try:
             current_profile = UserProfile.objects.get(id=kwargs["pk"])

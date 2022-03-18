@@ -114,7 +114,6 @@ class DocUploadView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = File.objects.all()
     http_method_names = ["post"]
-    # get_user_model = ser as
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django_filters",
     "dj_rest_auth",
     "dj_rest_auth.registration",
+    'corsheaders'
 ]
 
 SITE_ID = 1
@@ -56,6 +57,7 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -69,7 +71,9 @@ ROOT_URLCONF = "Archive_managment.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(BASE_DIR.joinpath("documents/templates"))],
+        "DIRS": [
+            str(BASE_DIR.joinpath("documents/templates")),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -152,6 +156,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+
 ACCOUNT_EMAIL_REQUIRED = True
 
 # You can use ‘mandatory’ to block a user from logging in until
@@ -177,6 +182,8 @@ ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
 REST_AUTH_SERIALIZERS = {
     "LOGIN_SERIALIZER": "users.serializers.LoginSerializer",
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
