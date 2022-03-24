@@ -39,14 +39,10 @@ schema_view = get_schema_view(
 )
 
 
-<<<<<<< HEAD
 
 urlpatterns = [
     path("", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
 
-=======
-urlpatterns = [
->>>>>>> f257b6dfc5e03de6e77a0a3a7901df04ee1be842
     re_path(
         r"^swagger/$",
         schema_view.with_ui("swagger", cache_timeout=0),

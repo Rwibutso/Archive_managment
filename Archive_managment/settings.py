@@ -25,11 +25,7 @@ SECRET_KEY = "django-insecure-7&q3tw!^n#)#6$wg=bv=)17xv_@7*kqnu(569-2rr)r%_42iaq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-<<<<<<< HEAD
 ALLOWED_HOSTS = ['archive-managment-app', 'archive-managment-app.herokuapp.com', '127.0.0.1:8000', 'localhost']
-=======
-ALLOWED_HOSTS = []
->>>>>>> f257b6dfc5e03de6e77a0a3a7901df04ee1be842
 
 
 # Application definition
@@ -61,10 +57,7 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-<<<<<<< HEAD
     "whitenoise.middleware.WhiteNoiseMiddleware",
-=======
->>>>>>> f257b6dfc5e03de6e77a0a3a7901df04ee1be842
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -152,12 +145,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-<<<<<<< HEAD
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
-=======
->>>>>>> f257b6dfc5e03de6e77a0a3a7901df04ee1be842
 STATIC_URL = "static/"
 
 # Default primary key field type

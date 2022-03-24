@@ -5,11 +5,7 @@ from rest_framework import generics, status, filters
 from .serializers import DocSerializer, DocUploadSerializer
 from rest_framework.response import Response
 from django.utils.translation import gettext_lazy as _
-<<<<<<< HEAD
-from rest_framework.permissions import IsAuthenticated, AllowAny
-=======
 from rest_framework.permissions import IsAuthenticated
->>>>>>> f257b6dfc5e03de6e77a0a3a7901df04ee1be842
 from django.contrib.auth import get_user_model
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -86,11 +82,7 @@ class DocListView(generics.ListAPIView):
     """
 
     serializer_class = DocSerializer
-<<<<<<< HEAD
-    permission_classes = (AllowAny,)
-=======
     permission_classes = (IsAuthenticated,)
->>>>>>> f257b6dfc5e03de6e77a0a3a7901df04ee1be842
     queryset = File.objects.all()
     http_method_names = ["get"]
 
